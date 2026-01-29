@@ -1,30 +1,29 @@
-class Rover {
-    constructor(x, y, z, scaleX, scaleY, scaleZ, texture){
-        this.pos = createVector(x, y, z);
-        this.scale = createVector(scaleX, scaleY, scaleZ);
-        this.texture = texture;
+class Rover{
+    constructor(x, y, z, width, height, scale, texture){
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.width = width;
+        this.height = height;
+        this.scale = scale;
+        this.texture =texture;
     }
-
-    move(dx, dz) {
-        this.pos.x += dx;
-        this.pos.z += dz;
-    }
-    
-    display() {
+    display(){
         push();
-        translate(this.pos.x, this.pos.y, this.pos.z);
-        this.scale(0.65);
+        scale(this.scale);
         noStroke();
+        translate(this.x, this.y, this.z);
         texture(this.texture);
         plane(this.width, this.height);
         pop();
     }
-
-    checkCollision(obstacles) {
-        for (let obst of obstacles) {
-            const d = dist(this.pos.x, this.pos.y, obst.pos.x, obst.pos.z);
-            if (d < 3) return true;
-        }
-        return false;
-    }
+    collision(xc, yc, zc, lc, bc, hc){
+            if((this.x - xc) < ((this.width/2) + (lc/2)) && (xc - this.x) < ((this.width/2) + (lc/2))
+            && (this.y - yc) < ((this.height/2) + (bc/2)) && (yc - this.y) < ((this.height/2) + (bc/2))
+            && (this.z - zc) < ((0) + (hc/2)) && (zc - this.z) < ((0) + (hc/2)))
+            {
+              collison_state = 'True';
+              function_state = 'False';
+            }
+          }
 }
